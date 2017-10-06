@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comments",
  *      indexes={
+ *          @ORM\Index(name="createdAt", columns={"createdAt"}),
+ *          @ORM\Index(name="publishedAt", columns={"publishedAt"}),
  *      }
  * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Blog\CommentRepository")

@@ -11,6 +11,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="posts",
  *      indexes={
+*           @ORM\Index(name="createdAt", columns={"createdAt"}),
+ *          @ORM\Index(name="publishedAt", columns={"publishedAt"}),
+ *          @ORM\Index(name="slug", columns={"slug"}),
+ *          @ORM\Index(name="isDeleted", columns={"isDeleted"})
  *      }
  * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Blog\PostRepository")
