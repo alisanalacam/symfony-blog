@@ -78,8 +78,43 @@ class BlogController extends Controller
             throw $this->createAccessDeniedException('Posts can only be shown to their authors.');
         }
         $deleteForm = $this->createDeleteForm($post);
+
         return $this->render('admin/blog/show.html.twig', array(
             'post'        => $post,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Makale düzenleme
+     *
+     * @Route("/{id}/edit", requirements={"id" = "\d+"}, name="admin_post_edit")
+     * @Method({"GET", "POST"})
+     * @param Post $post
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Post $post, Request $request)
+    {
+        if (null === $this->getUser() || !$post->isAuthor($this->getUser())) {
+            throw $this->createAccessDeniedException('Posts can only be edited by their authors.');
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $editForm = $this->createForm('AppBundle\Form\PostType', $post);
+        $deleteForm = $this->createDeleteForm($post);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $post->setSlug($this->get('slugger')->slugify($post->getTitle()));
+            $entityManager->flush();
+            $this->addFlash('success', 'Makale başarıyla güncellendi');
+            return $this->redirectToRoute('admin_post_edit', array('id' => $post->getId()));
+        }
+
+        return $this->render('admin/blog/edit.html.twig', array(
+            'post'        => $post,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
