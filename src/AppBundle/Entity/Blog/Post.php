@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Post
 {
+    const NUM_ITEMS = 10;
     /**
      * @var int
      *
@@ -47,11 +48,11 @@ class Post
     private $slug;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="author", type="integer")
+     * @ORM\Column(name="authorEmail", type="string")
      */
-    private $author;
+    private $authorEmail;
 
     /**
      * @var \DateTime
@@ -182,26 +183,26 @@ class Post
     }
 
     /**
-     * Set author
+     * Set authorEmail
      *
-     * @param integer $author
+     * @param string $authorEmail
      * @return Post
      */
-    public function setAuthor($author)
+    public function setAuthorEmail($authorEmail)
     {
-        $this->author = $author;
+        $this->authorEmail = $authorEmail;
 
         return $this;
     }
 
     /**
-     * Get author
+     * Get authorEmail
      *
-     * @return integer
+     * @return string
      */
-    public function getAuthor()
+    public function getAuthorEmail()
     {
-        return $this->author;
+        return $this->authorEmail;
     }
 
     /**
