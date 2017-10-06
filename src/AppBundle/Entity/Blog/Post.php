@@ -333,4 +333,13 @@ class Post
 
         return $this;
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isAuthor(User $user)
+    {
+        return $user->getEmail() == $this->getAuthorEmail();
+    }
 }
