@@ -32,7 +32,9 @@ class AddUserCommand extends ContainerAwareCommand
             ->addArgument('username', InputArgument::OPTIONAL, 'Yeni kullanıcı adı')
             ->addArgument('password', InputArgument::OPTIONAL, 'Kullanıcının şifresi')
             ->addArgument('email', InputArgument::OPTIONAL, 'Kullanıcının eposta adresi')
+            ->addArgument('enabled', InputArgument::OPTIONAL, 'aktif olsun mu?', 0)
             ->addOption('is-admin', null, InputOption::VALUE_NONE, 'yönetici mi?')
+
         ;
     }
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -50,7 +52,7 @@ class AddUserCommand extends ContainerAwareCommand
         $output->writeln(array(
             '',
             '',
-            ' $ php app/console app:add-user username password email@example.com',
+            ' $ php app/console app:add-user username password email@example.com 1',
             '',
         ));
         $output->writeln(array(
@@ -106,14 +108,19 @@ class AddUserCommand extends ContainerAwareCommand
         $username = $input->getArgument('username');
         $plainPassword = $input->getArgument('password');
         $email = $input->getArgument('email');
+        $enabled = $input->getArgument('enabled');
         $isAdmin = $input->getOption('is-admin');
         $existingUser = $this->entityManager->getRepository('AppBundle:User')->findOneBy(array('username' => $username));
         if (null !== $existingUser) {
             throw new \RuntimeException(sprintf('"%s" isimli kullanıcı sistemde mevcut.', $username));
         }
+        if ($enabled !== 1 || $enabled !== 0) {
+            $enabled = 0;
+        }
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
+        $user->setEnabled($enabled);
         $user->setRoles(array($isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER'));
         $encoder = $this->getContainer()->get('security.password_encoder');
         $encodedPassword = $encoder->encodePassword($user, $plainPassword);
