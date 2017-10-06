@@ -27,16 +27,16 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="body", type="text")
      */
-    private $content;
+    private $body;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="author", type="integer")
+     * @ORM\Column(name="authorEmail", type="string")
      */
-    private $author;
+    private $authorEmail;
 
     /**
      * @var \DateTime
@@ -44,6 +44,13 @@ class Comment
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="publishedAt", type="datetime")
+     */
+    private $publishedAt;
 
     /**
      * Comment constructor.
@@ -70,49 +77,49 @@ class Comment
     }
 
     /**
-     * Set content
+     * Set body
      *
-     * @param string $content
+     * @param string $body
      * @return Comment
      */
-    public function setContent($content)
+    public function setBody($body)
     {
-        $this->content = $content;
+        $this->body = $body;
 
         return $this;
     }
 
     /**
-     * Get content
+     * Get body
      *
      * @return string 
      */
-    public function getContent()
+    public function getBody()
     {
-        return $this->content;
+        return $this->body;
     }
 
     /**
-     * Set author
+     * Set authorEmail
      *
-     * @param integer $author
+     * @param string $authorEmail
      * @return Comment
      */
-    public function setAuthor($author)
+    public function setAuthorEmail($authorEmail)
     {
-        $this->author = $author;
+        $this->authorEmail = $authorEmail;
 
         return $this;
     }
 
     /**
-     * Get author
+     * Get authorEmail
      *
-     * @return integer
+     * @return string
      */
-    public function getAuthor()
+    public function getAuthorEmail()
     {
-        return $this->author;
+        return $this->authorEmail;
     }
 
     /**
@@ -129,9 +136,32 @@ class Comment
     }
 
     /**
-     * Get createdAt
+     * Get publishedAt
      *
      * @return \DateTime 
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * Set publishedAt
+     *
+     * @param \DateTime $publishedAt
+     * @return Comment
+     */
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
