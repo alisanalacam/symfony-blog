@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'blog_post_show' %}
+
+{% block main %}
+    <h1>{{ post.title }}</h1>
+
+    {{ post.body|md2html }}
+
+    <div id="post-add-comment" class="well">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ render(controller('AppBundle:Blog:commentForm', { 'id': post.id })) }}
+        {% else %}
+            <p>
+                Yorum Yayınlamak için
+                <a class="btn btn-success" href="{{ path('security_login_form') }}">
+                    <i class="fa fa-sign-in"></i> Giriş Yap
+                </a>
+            </p>
+        {% endif %}
+    </div>
+
+    <h3>{{ post.comments|length }} yorum</h3>
+
+    {% for comment in post.comments %}
+        <div class="row post-comment">
+            <h4 class="col-sm-3">
+                <strong>{{ comment.authorEmail }}</strong>
+                <strong>{{ comment.createdAt.format('d.m.Y H:i') }}</strong>
+            </h4>
+            <div class="col-sm-9">
+                {{ comment.body|md2html }}
+            </div>
+        </div>
+    {% else %}
+        <div class="post-comment">
+            <p>Yorum yok</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+    {% if app.user and post.isAuthor(app.user) %}
+        <div class="section">
+            <a class="btn btn-lg btn-block btn-success" href="{{ path('admin_post_edit', { id: post.id }) }}">
+                <i class="fa fa-edit"></i> Düzenle
+            </a>
+        </div>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
