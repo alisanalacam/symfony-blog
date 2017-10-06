@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Symfony Blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisanalacam/symfony-blog.git"
+  },
+  "author": "Alisan ALACAM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alisanalacam/symfony-blog/issues"
+  },
+  "homepage": "https://github.com/alisanalacam/symfony-blog#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
