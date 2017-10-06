@@ -341,6 +341,6 @@ class Post
      */
     public function isAuthor(User $user)
     {
-        return $user->getId() == $this->getAuthor();
+        return $user->getId() == $this->getAuthor()->getId();
     }
 }
