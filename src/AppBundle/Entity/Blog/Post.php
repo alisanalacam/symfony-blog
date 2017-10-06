@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Blog;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -48,11 +49,11 @@ class Post
     private $slug;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="authorEmail", type="string")
+     * @ORM\Column(name="author", type="string")
      */
-    private $authorEmail;
+    private $author;
 
     /**
      * @var \DateTime
@@ -183,26 +184,26 @@ class Post
     }
 
     /**
-     * Set authorEmail
+     * Set author
      *
-     * @param string $authorEmail
+     * @param integer $author
      * @return Post
      */
-    public function setAuthorEmail($authorEmail)
+    public function setAuthor($author)
     {
-        $this->authorEmail = $authorEmail;
+        $this->author = $author;
 
         return $this;
     }
 
     /**
-     * Get authorEmail
+     * Get author
      *
-     * @return string
+     * @return integer
      */
-    public function getAuthorEmail()
+    public function getAuthor()
     {
-        return $this->authorEmail;
+        return $this->author;
     }
 
     /**
@@ -340,6 +341,6 @@ class Post
      */
     public function isAuthor(User $user)
     {
-        return $user->getEmail() == $this->getAuthorEmail();
+        return $user->getId() == $this->getAuthor();
     }
 }
