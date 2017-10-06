@@ -12,4 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class PostRepository extends EntityRepository
 {
+    /**
+     * @return \Doctrine\ORM\AbstractQuery
+     */
+    public function queryLatest()
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT p
+                FROM AppBundle:Blog\Post p
+                WHERE p.publishedAt <= :now
+                ORDER BY p.publishedAt DESC
+            ')
+            ->setParameter('now', new \DateTime())
+            ;
+    }
+
+    /**
+     *
+     */
+    public function findLatest()
+    {
+        $this->queryLatest()->getResult();
+    }
 }
