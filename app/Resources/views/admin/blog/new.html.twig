@@ -1,0 +1,27 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_post_new' %}
+
+{% block main %}
+    <h1>Yeni Makale Ekle</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.body) }}
+    {{ form_row(form.author) }}
+    {{ form_row(form.publishedAt) }}
+
+    <input type="submit" value="Kaydet" class="btn btn-primary" />
+
+    {{ form_widget(form.saveAndCreateNew, { label: 'Kaydev ve Yeni', attr: { class: 'btn btn-primary' } }) }}
+
+    <a href="{{ path('admin_post_index') }}" class="btn btn-link">
+        Geri Dön
+    </a>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block sidebar %}
+    {{ parent() }}
+
+{% endblock %}
