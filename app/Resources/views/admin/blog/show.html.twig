@@ -1,0 +1,46 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_post_show' %}
+
+{% block main %}
+    <h1>{{ post.title }}</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Özet</th>
+            <td>{{ post.summary|md2html }}</td>
+        </tr>
+        <tr>
+            <th>İçerik</th>
+            <td>{{ post.content|md2html }}</td>
+        </tr>
+        <tr>
+            <th>Yazar</th>
+            <td><p>{{ post.author }}</p></td>
+        </tr>
+        <tr>
+            <th>Yayınlanma Tarihi</th>
+            <td><p>{{ post.publishedAt.format('d.m.Y H:i') }}</p></td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section">
+        <a href="{{ path('admin_post_edit', { id: post.id }) }}" class="btn btn-lg btn-block btn-success">
+            <i class="fa fa-edit"></i> Düzenle
+        </a>
+    </div>
+
+    <div class="section">
+        {{ include('admin/blog/_form.html.twig', {
+            form: delete_form,
+            button_label: 'Makaleyi Sil',
+            button_css: 'btn btn-lg btn-block btn-danger',
+            show_confirmation: true,
+        }, with_context = false) }}
+    </div>
+
+{% endblock %}
