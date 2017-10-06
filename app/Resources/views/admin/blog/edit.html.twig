@@ -1,0 +1,29 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_post_edit' %}
+
+{% block main %}
+    <h1>{{ post.title }} İsimli Makale Düzenleme</h1>
+
+    {{ include('default/_flash_messages.html.twig') }}
+
+    {{ include('admin/blog/_form.html.twig', {
+        form: edit_form,
+        button_label: 'Kaydet',
+        include_back_to_home_link: true,
+    }, with_context = false) }}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section actions">
+        {{ include('admin/blog/_form.html.twig', {
+            form: delete_form,
+            button_label: 'Makaleyi Sil',
+            button_css: 'btn btn-lg btn-block btn-danger',
+            show_confirmation: true,
+        }, with_context = false) }}
+    </div>
+
+    {{ parent() }}
+
+{% endblock %}
