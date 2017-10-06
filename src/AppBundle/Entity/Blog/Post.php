@@ -49,9 +49,9 @@ class Post
     private $slug;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="author", type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="users")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\OrderBy({"username" = "DESC"})
      */
     private $author;
 
