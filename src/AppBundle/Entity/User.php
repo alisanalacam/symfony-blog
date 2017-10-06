@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,8 +23,15 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * One User has Many Posts.
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Blog\Post", mappedBy="author")
+     */
+    private $posts;
+
     public function __construct()
     {
+        $this->posts = new ArrayCollection();
         parent::__construct();
         // your own logic
     }
