@@ -1,0 +1,55 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Makaleler</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Başlık</th>
+            <th><i class="glyphicon glyphicon-user"></i> Yazar</th>
+            <th><i class="glyphicon glyphicon-calendar"></i> Yayın Tarihi</th>
+            <th><i class="glyphicon glyphicon-cogs"></i> İşlem</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td>{{ post.author }}</td>
+                <td>{% if post.publishedAt %}{{ post.publishedAt.format('d.m.Y H:i') }}{% endif %}</td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('admin_post_show', { id: post.id }) }}" class="btn btn-sm btn-default">
+                            Göster
+                        </a>
+
+                        {% if post.isAuthor(app.user) %}
+                            <a href="{{ path('admin_post_edit', { id: post.id }) }}" class="btn btn-sm btn-primary">
+                                <i class="fa fa-edit"></i> Düzenle
+                            </a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" align="center">Makale yok.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section actions">
+        <a href="{{ path('admin_post_new') }}" class="btn btn-lg btn-block btn-success">
+            <i class="fa fa-plus"></i> Yeni Makale
+        </a>
+    </div>
+
+    {{ parent() }}
+
+{% endblock %}
