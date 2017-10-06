@@ -9,7 +9,7 @@
 
     <div id="post-add-comment" class="well">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {{ render(controller('AppBundle:Blog:commentForm', { 'id': post.id })) }}
+            {{ render(controller('AppBundle:Blog/Post:commentForm', { 'id': post.id })) }}
         {% else %}
             <p>
                 Yorum Yayınlamak için
