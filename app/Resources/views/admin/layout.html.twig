@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block header_navigation_links %}
+    <li>
+        <a href="{{ path('admin_post_index') }}">
+            <i class="glyphicon glyphicon-list-alt"></i> Makaleler
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('blog_index') }}">
+            <i class="glyphicon glyphicon-home"></i> Geri Dön
+        </a>
+    </li>
+{% endblock %}
