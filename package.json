@@ -18,7 +18,7 @@
   "homepage": "https://github.com/alisanalacam/symfony-blog#readme",
   "dependencies": {
     "grunt-browserify": "^5.2.0",
-    "grunt-browserify-alias": "^0.1.5"
+    "gruntcl-browserify-alias": "^0.1.5"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
