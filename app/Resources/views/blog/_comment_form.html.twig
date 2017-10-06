@@ -4,12 +4,12 @@
 
     {{ form_errors(form) }}
 
-    <div class="form-group {% if not form.content.vars.valid %}has-error{% endif %}">
-        {{ form_label(form.content, 'İçerik', { label_attr: { class: 'hidden' }}) }}
+    <div class="form-group {% if not form.body.vars.valid %}has-error{% endif %}">
+        {{ form_label(form.body, 'İçerik', { label_attr: { class: 'hidden' }}) }}
 
-        {{ form_errors(form.content) }}
+        {{ form_errors(form.body) }}
 
-        {{ form_widget(form.content, { attr: { rows: 10 } }) }}
+        {{ form_widget(form.body, { attr: { rows: 10 } }) }}
     </div>
 
     <div class="form-group">
