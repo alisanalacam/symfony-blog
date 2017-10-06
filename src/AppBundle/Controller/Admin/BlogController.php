@@ -119,4 +119,41 @@ class BlogController extends Controller
         ));
     }
 
+    /**
+     * Makale siler
+     *
+     * @Route("/{id}", name="admin_post_delete")
+     * @Method("DELETE")
+     * @Security("post.isAuthor(user)")
+     * @param Request $request
+     * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, Post $post)
+    {
+        $form = $this->createDeleteForm($post);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($post);
+            $entityManager->flush();
+            $this->addFlash('success', 'Makale başarıyla silindi');
+        }
+        return $this->redirectToRoute('admin_post_index');
+    }
+    /**
+     * id ye göre silme formunu oluşturur
+     *
+     * @param Post $post The post object
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Post $post)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_post_delete', array('id' => $post->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
 }
