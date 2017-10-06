@@ -25,7 +25,7 @@
     {% for comment in post.comments %}
         <div class="row post-comment">
             <h4 class="col-sm-3">
-                <strong>{{ comment.authorEmail }}</strong>
+                <strong>{{ comment.author }}</strong>
                 <strong>{{ comment.createdAt.format('d.m.Y H:i') }}</strong>
             </h4>
             <div class="col-sm-9">
