@@ -64,4 +64,24 @@ class BlogController extends Controller
         ));
     }
 
+    /**
+     * Makale detayı
+     *
+     * @Route("/{id}", requirements={"id" = "\d+"}, name="admin_post_show")
+     * @Method("GET")
+     * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showAction(Post $post)
+    {
+        if (null === $this->getUser() || !$post->isAuthor($this->getUser())) {
+            throw $this->createAccessDeniedException('Posts can only be shown to their authors.');
+        }
+        $deleteForm = $this->createDeleteForm($post);
+        return $this->render('admin/blog/show.html.twig', array(
+            'post'        => $post,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
 }
